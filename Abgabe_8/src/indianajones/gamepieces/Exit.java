@@ -1,7 +1,10 @@
 package indianajones.gamepieces;
 
-public class Exit extends GamePiece{
-    Exit(char letter, int lines, int columns) {
-        super(lines, columns, 'E', lines/2, columns-1);
+public class Exit extends GamePiece {
+    public Exit(int lines, int columns) {
+        super(lines, columns);
+        letter = 'E';
+        line = lines / 2;
+        column = columns - 1;
     }
 }

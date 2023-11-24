@@ -1,13 +1,13 @@
 package indianajones.gamepieces;
 
 class GamePiece {
-    private int lines;
-    private int columns;
-    private int line;
-    private int column;
-    private char letter;
+    protected int lines;
+    protected int columns;
+    protected int line;
+    protected int column;
+    protected char letter;
 
-    GamePiece(int lines, int columns, char letter, int line, int column) {
+    GamePiece(int lines, int columns) {
         this.lines = lines;
         this.columns = columns;
     }
@@ -16,15 +16,16 @@ class GamePiece {
 
     }
 
-    int getLine() {
+    public int getLine() {
         return line;
     }
 
-    int getColumn() {
+    public int getColumn() {
         return column;
     }
 
-    char getLetter() {
+    public char getLetter() {
         return letter;
     }
+
 }

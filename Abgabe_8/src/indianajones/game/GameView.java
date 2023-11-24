@@ -34,7 +34,7 @@ import java.util.stream.Stream;
  * Zusätzlich kann Ton ausgegeben werden und Tastatur- und Mausereignisse können abgefragt werden.
  *
  * <ol>
- *     <li>Sie können die Methode {@link #print(String, int, boolean)} statisch aufrufen, um Texte anzuzeigen. Ein Fenster
+ *     <li>Sie können die Methode {@link #print(String, int, boolean, double)} statisch aufrufen, um Texte anzuzeigen. Ein Fenster
  *   wird automatisch geöffnet und für weitere Ausgaben mit derselben Methode offen gehalten. Beispiel:
  *   <pre>{@code
  *   GameView.print("Hallo", 20, true);
@@ -943,7 +943,7 @@ public abstract class GameView {
     }
 
     /**
-     * Zeigt ein Fenster an, in dem Text ausgegeben werden kann. Nutzen Sie die Methode {@link #print(String, int, boolean)}
+     * Zeigt ein Fenster an, in dem Text ausgegeben werden kann. Nutzen Sie die Methode {@link #print(String, int, boolean, double)}
      * um Text auszugeben. Mit dieser Methode kann das Fenster auch wieder geschlossen werden.
      *
      * @param show True um das Fenster zu öffnen, false um ein geöffnetes Fenster zu schließen.
@@ -985,13 +985,29 @@ public abstract class GameView {
      * @param fontSize Die Schriftgröße.
      * @param bold     Die Schriftart. Bei true wird die Schrift fettgedruckt.
      */
-    public static void print(String string, int fontSize, boolean bold) {
-        if (instance == null) {
-            throw new IllegalStateException("GameView needs to be shown, before text can be printed.");
+    public static void print(String string, int fontSize, boolean bold, double lineSpacing) {
+        checkStaticUsage();
+        if (lineSpacing > 0 && lineSpacing < 1) {
+            String[] lines = string.split("\\R");
+            double spacing = fontSize * lineSpacing;
+            for (int i = 0; i < lines.length; i++) {
+                instance.addTextToCanvas(lines[i], 0, spacing * i - (spacing / 2 - 1), fontSize, bold, Color.WHITE, 0);
+            }
+        } else {
+            instance.addTextToCanvas(string, 0, 0, fontSize, bold, Color.WHITE, 0);
         }
-        instance.addTextToCanvas(string, 0, 0, fontSize, bold, Color.WHITE, 0);
         instance.swingAdapter.paintingPanel.paintImageToWindow(instance.canvas.printObjects, instance.canvas.backgroundColor);
         instance.canvas.printObjects.clear();
+    }
+
+    private static void checkStaticUsage() {
+        if (instance == null) {
+            throw new IllegalStateException("""
+                    The methods print(...), printTestScreen() and keyPressed(...) can only be used when GameView is
+                    used in a static way.
+                                        
+                    GameView needs to be shown by calling GameView.showGameView(true), before text can be printed.""");
+        }
     }
 
     /**
@@ -1004,10 +1020,8 @@ public abstract class GameView {
      * @param fontSize Die Schriftgröße.
      * @param bold     Die Schriftart. Bei true wird die Schrift fettgedruckt.
      */
-    public static void printTestScreen(int fontSize, boolean bold) {
-        if (instance == null) {
-            throw new IllegalStateException("GameView needs to be shown, before text can be printed.");
-        }
+    public static void printTestScreen(int fontSize, boolean bold, double lineSpacing) {
+        checkStaticUsage();
         StringBuilder test = new StringBuilder();
         for (int line = 1; line <= 1000; line++) {
             for (int column = 1; column <= 1000; column++) {
@@ -1026,9 +1040,35 @@ public abstract class GameView {
             }
             test.append("\n");
         }
-        instance.addTextToCanvas(test.toString(), 0, 0, fontSize, bold, Color.WHITE, 0);
-        instance.swingAdapter.paintingPanel.paintImageToWindow(instance.canvas.printObjects, instance.canvas.backgroundColor);
-        instance.canvas.printObjects.clear();
+        print(test.toString(), fontSize, bold, lineSpacing);
+    }
+
+    /**
+     * Zeigt an, ob die übergebene Taste gerade gedrückt wird.
+     * Das Fenster muss bereits mit der Methode {@link #showGameView(boolean)} geöffnet worden sein.
+     * <p>
+     *
+     * @param desiredKeyCode Ein KeyCode von <code>java.awt.event.KeyEvent</code>, z.B. <code>KeyEvent.VK_A</code> für den Buchstaben A.
+     * @return True, falls diese Taste gerade gedrückt wird.
+     */
+    public static boolean keyPressed(int desiredKeyCode) {
+        checkStaticUsage();
+        return instance.keyboard.keyCodesOfCurrentlyPressedKeys.contains(desiredKeyCode);
+    }
+
+    /**
+     * Es wird eine Wartezeit eingefügt.
+     * Das Fenster muss bereits mit der Methode {@link #showGameView(boolean)} geöffnet worden sein.
+     * <p>
+     *
+     * @param milliseconds Die Anzahl von Millisekunden der Wartezeit.
+     */
+    public static void sleep(int milliseconds) {
+        checkStaticUsage();
+        try {
+            Thread.sleep(milliseconds);
+        } catch (InterruptedException ignored) {
+        }
     }
 
     /**
@@ -2936,7 +2976,7 @@ public abstract class GameView {
     private static class Version {
         private static final int MAJOR = 2;
         private static final int MINOR = 3;
-        private static final int UPDATE = 0;
+        private static final int UPDATE = 1;
 
         private final static String VERSION = MAJOR + "." + MINOR + "." + UPDATE;
 
