@@ -1,6 +1,6 @@
 package indianajones.gamepieces;
 
-class GamePiece {
+public class GamePiece {
     protected int lines;
     protected int columns;
     protected int line;
@@ -12,7 +12,7 @@ class GamePiece {
         this.columns = columns;
     }
 
-    void move() {
+    public void move() {
 
     }
 

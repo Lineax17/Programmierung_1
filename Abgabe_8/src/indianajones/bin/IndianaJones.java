@@ -10,10 +10,13 @@ import java.awt.event.KeyEvent;
 
 */
 
+import indianajones.game.Game;
+
 public class IndianaJones {
 
     public static void main(String[] args) {
-
+        Game game = new Game(10, 20, 3);
+        System.out.println(game.toString());
     }
     /*
     private static final int LINES = 45;
