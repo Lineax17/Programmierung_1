@@ -2,25 +2,15 @@
 package indianajones.bin;
 
 
-/*
+
 import indianajones.game.Game;
 import indianajones.game.GameView;
-
 import java.awt.event.KeyEvent;
-
-*/
-
-import indianajones.game.Game;
 
 public class IndianaJones {
 
-    public static void main(String[] args) {
-        Game game = new Game(10, 20, 3);
-        System.out.println(game.toString());
-    }
-    /*
     private static final int LINES = 45;
-    private static final int COLUMNS = 104;
+    private static final int COLUMNS = 98;
     private static final int NUMBER_OF_SNAKES = 100;
 
     private Game game;
@@ -59,5 +49,4 @@ public class IndianaJones {
         }
     }
 
-    */
 }

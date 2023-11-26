@@ -7,7 +7,7 @@ public class Game extends GameElements {
         super(lines, columns, numberOfSnakes);
     }
 
-    void nextIteration() {
+    public void nextIteration() {
         moveAllGamePieces();
     }
 
