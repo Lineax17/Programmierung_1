@@ -2,7 +2,7 @@ package indianajones.game;
 
 import indianajones.gamepieces.*;
 
-public class GameElements extends GameField {
+class GameElements extends GameField {
     Jones jones;
     Exit exit;
     Grail grail;

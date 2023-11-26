@@ -9,9 +9,8 @@ public class Grail extends GamePiece {
         column = (int) (Math.random() * columns);
     }
 
-    void beInvisible() {
+    public void beInvisible() {
         letter = (' ');
     }
-
 
 }

@@ -1,8 +1,6 @@
 
 package indianajones.bin;
 
-
-
 import indianajones.game.Game;
 import indianajones.game.GameView;
 import java.awt.event.KeyEvent;

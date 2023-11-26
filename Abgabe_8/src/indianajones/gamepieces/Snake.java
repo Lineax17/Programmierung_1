@@ -1,7 +1,7 @@
 package indianajones.gamepieces;
 
 public class Snake extends GamePiece {
-    Jones jones;
+    private Jones jones;
 
     public Snake(int lines, int columns, Jones jones) {
         super(lines, columns);

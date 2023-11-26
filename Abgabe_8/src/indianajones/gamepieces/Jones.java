@@ -6,16 +6,25 @@ import static java.awt.event.KeyEvent.*;
 
 
 public class Jones extends GamePiece {
-    boolean grail;
+    private boolean grail;
 
     public Jones(int lines, int columns) {
         super(lines, columns);
         letter = 'J';
         line = lines / 2;
         column = 0;
+        grail = false;
     }
 
-    boolean hasSamePositionAs(GamePiece gamePiece) {
+    public boolean hasGrail() {
+        return grail;
+    }
+
+    public void setGrail(boolean grail) {
+        this.grail = grail;
+    }
+
+    public boolean hasSamePositionAs(GamePiece gamePiece) {
         return super.getLine() == gamePiece.getLine() && super.getColumn() == gamePiece.getColumn();
     }
 
@@ -33,6 +42,5 @@ public class Jones extends GamePiece {
         if (GameView.keyPressed(VK_RIGHT)) {
             column = column + 1;
         }
-
     }
 }
