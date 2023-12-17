@@ -16,21 +16,35 @@ public class PrimeNumberGenerator {
         return isPrime;
     }
 
-    long findNextPrimeNumber(long startNumber){
+    long findNextPrimeNumber(long startNumber) {
+        long number = startNumber;
         while (true) {
-            if (numberIsPrime(startNumber)) {
+            if (numberIsPrime(number)) {
                 break;
             } else {
-                startNumber++;
+                number++;
             }
         }
-        return startNumber;
+        return number;
+    }
+
+    void printPrimeNumbers(long startNumber, int numbers) {
+        long number = startNumber;
+        int counter = 0;
+        while (counter < numbers) {
+            if (numberIsPrime(number)) {
+                System.out.println(number);
+                counter++;
+            }
+            number++;
+        }
     }
 
     public static void main(String[] args) {
         PrimeNumberGenerator primeNumberGenerator = new PrimeNumberGenerator();
-        System.out.println(primeNumberGenerator.numberIsPrime(1));
-        System.out.println(primeNumberGenerator.findNextPrimeNumber(15));
+        long startNumber = 1_000_000_000_000L;
+        int numbers = 100;
+        primeNumberGenerator.printPrimeNumbers(startNumber, numbers);
     }
 }
 
