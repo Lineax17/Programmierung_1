@@ -18,8 +18,8 @@ public class Experiments {
         random.setSeed(seed);
         for (int i = 1; i <= REPETITIONS; i++) {
 
-            double a = random.nextInt(10);
-            double b = random.nextInt(10);
+            double a = random.nextDouble(10);
+            double b = random.nextDouble(10);
 
             if (thirdPowerShort) {
                 binomial.thirdPowerShort(a, b);
@@ -56,28 +56,27 @@ public class Experiments {
 
     }
 
-    /*
-    void testRandom() {
+
+    /*void testRandom() {
         random.setSeed(seed);
         for (int i = 1; i <= 10; i++) {
-            double a = random.nextInt(10);
-            double b = random.nextInt(10);
+            double a = random.nextDouble(10);
+            double b = random.nextDouble(10);
             System.out.println(a + " : " + b);
         }
         System.out.println();
         random.setSeed(seed);
         for (int i = 1; i <= 10; i++) {
-            double a = random.nextInt(10);
-            double b = random.nextInt(10);
+            double a = random.nextDouble(10);
+            double b = random.nextDouble(10);
             System.out.println(a + " : " + b);
         }
-    }
-    */
+    }*/
+
 
 
     public static void main(String[] args) {
-        Experiments experiments = new Experiments();
-        experiments.execute();
-        //experiments.testRandom();
+        new Experiments().execute();
+        //new Experiments().testRandom();
     }
 }
