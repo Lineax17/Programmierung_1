@@ -7,6 +7,7 @@ import java.math.RoundingMode;
 
 public class Sequence {
     private MathContext mathcontext;
+
     BigDecimal lustig(int n) {
 
         if (n < 0) {
@@ -18,9 +19,9 @@ public class Sequence {
 
         for (int i = 0; i <= n; i++) {
 
-            BigDecimal zaehler         = BigDecimal.valueOf(i + 1).pow(i);
-            BigDecimal nenner          = BigDecimal.valueOf(2).pow(i);
-            sequence                   = sequence.add(zaehler.divide(nenner, mathcontext));
+            BigDecimal zaehler = BigDecimal.valueOf(i + 1).pow(i);
+            BigDecimal nenner = BigDecimal.valueOf(2).pow(i);
+            sequence = sequence.add(zaehler.divide(nenner, mathcontext));
         }
 
         return sequence;
