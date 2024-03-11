@@ -5,15 +5,17 @@ import schafkopfen.gameview.Card;
 
 import java.util.Random;
 
+import static java.util.Arrays.copyOfRange;
+
 public class Dealer {
     private Animations animations;
     Card[] deck;
-    Player[] players = new Player[4];
+    Player[] players;
 
     Dealer() {
         animations = new Animations();
         deck = Card.createFreshDeckWith32Cards();
-
+        players = new Player[4];
     }
 
     void play() throws IllegalCardDeckException {
@@ -63,6 +65,15 @@ public class Dealer {
 
     void dealCards() throws IllegalCardDeckException {
         checkCardDeckValidity();
-        players[0].hand = deck.
+        players[0].setHand(copyOfRange(deck, 0, 8));
+        players[1].setHand(copyOfRange(deck, 8, 16));
+        players[2].setHand(copyOfRange(deck, 16, 24));
+        players[3].setHand(copyOfRange(deck, 24, 32));
+        sleep(1000);
+        for (int i = 0; i <= players.length; i++) {
+            players[i].sortCards();
+        }
+
+
     }
 }
