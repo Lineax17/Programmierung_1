@@ -63,5 +63,6 @@ public class Dealer {
 
     void dealCards() throws IllegalCardDeckException {
         checkCardDeckValidity();
+        players[0].hand = deck.
     }
 }
